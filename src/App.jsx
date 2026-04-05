@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BookOpen, Menu } from 'lucide-react';
 import { BookProvider, useBooks } from './context/BookContext';
 import Sidebar from './components/Sidebar';
 import Dashboard  from './pages/Dashboard';
@@ -16,11 +18,27 @@ function ProtectedRoute({ children }) {
 }
 
 export default function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <BookProvider>
       <BrowserRouter>
         <div className="app-layout">
-          <Sidebar />
+          {/* Mobile Header */}
+          <div className="mobile-header">
+            <div className="mobile-header-logo">
+              <BookOpen size={22} color="#f5b942" />
+              <span>BookShelf</span>
+            </div>
+            <button className="mobile-menu-btn" onClick={() => setIsSidebarOpen(true)}>
+              <Menu size={24} color="#e8eaf0" />
+            </button>
+          </div>
+          
+          {/* Overlay for mobile sidebar */}
+          <div className={`sidebar-overlay ${isSidebarOpen ? 'open' : ''}`} onClick={() => setIsSidebarOpen(false)} />
+
+          <Sidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
           <main className="main-content">
             <Routes>
               <Route path="/"           element={<Dashboard />} />

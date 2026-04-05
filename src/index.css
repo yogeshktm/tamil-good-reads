@@ -846,3 +846,130 @@ input, textarea, select { font-family: inherit; }
 .text-sm { font-size: 0.875rem; }
 .text-xs { font-size: 0.75rem; }
 .fw-700 { font-weight: 700; }
+
+/* ── Mobile Responsive Layout ─────────────────────────────── */
+.mobile-header {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.mobile-header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.mobile-menu-btn {
+  background: transparent;
+  color: var(--text);
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 95;
+  transition: opacity var(--transition);
+}
+
+.sidebar-overlay.open {
+  display: block;
+}
+
+.sidebar-header-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-header-mobile .sidebar-logo {
+  padding: 0;
+}
+
+.mobile-close-btn {
+  display: none;
+  padding: 0.4rem;
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+  
+  .mobile-header {
+    display: flex;
+  }
+  
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .main-content {
+    margin-left: 0;
+    padding: 1.5rem 1rem;
+  }
+
+  .mobile-close-btn {
+    display: flex;
+  }
+  
+  .sidebar-logo {
+    display: none;
+  }
+
+  .sidebar-header-mobile .sidebar-logo {
+    display: flex;
+  }
+
+  /* Grid adjustments for mobile */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .book-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .book-detail-cover {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}

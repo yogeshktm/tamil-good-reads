@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
-  BookOpen, Library, BarChart2, QrCode, User, Plus, ScanLine
+  BookOpen, Library, BarChart2, QrCode, User, Plus, ScanLine, X
 } from 'lucide-react';
 import { useBooks } from '../context/BookContext';
 
@@ -15,7 +15,7 @@ const publicLinks = [
   { to: '/analytics', icon: BarChart2, label: 'Analytics' },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, closeSidebar }) {
   const { profile, isAdmin, logout } = useBooks();
   const navigate = useNavigate();
   const initials = profile.name
@@ -23,10 +23,15 @@ export default function Sidebar() {
     : 'BL';
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-logo">
-        <BookOpen size={22} />
-        <span>BookShelf</span>
+    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-header-mobile">
+        <div className="sidebar-logo">
+          <BookOpen size={22} />
+          <span>BookShelf</span>
+        </div>
+        <button className="btn btn-ghost mobile-close-btn" onClick={closeSidebar}>
+          <X size={20} />
+        </button>
       </div>
 
       <nav className="sidebar-nav">
@@ -36,6 +41,7 @@ export default function Sidebar() {
             to={to}
             end={to === '/'}
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+            onClick={closeSidebar}
           >
             <Icon size={17} />
             {label}
@@ -47,6 +53,7 @@ export default function Sidebar() {
             key={to}
             to={to}
             className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+            onClick={closeSidebar}
           >
             <Icon size={17} />
             {label}
